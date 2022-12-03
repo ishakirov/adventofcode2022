@@ -7,15 +7,6 @@ import (
 	"strconv"
 )
 
-func sum(a []int) int {
-	re := 0
-	for _, v := range a {
-		re += v
-	}
-
-	return re
-}
-
 func max(a, b int) int {
 	if a > b {
 		return a
@@ -33,7 +24,7 @@ func main() {
 
 	scanner := bufio.NewScanner(input)
 
-	currentElfCalories := make([]int, 0)
+	currentElfCalories := 0
 	maxCalories := 0
 
 	for scanner.Scan() {
@@ -43,19 +34,16 @@ func main() {
 				log.Fatal(err)
 			}
 
-			currentElfCalories = append(currentElfCalories, calories)
+			currentElfCalories += calories
 		} else {
-			maxCalories = max(maxCalories, sum(currentElfCalories))
-			currentElfCalories = currentElfCalories[:0]
+			maxCalories = max(maxCalories, currentElfCalories)
+			currentElfCalories = 0
 		}
 	}
+	maxCalories = max(maxCalories, currentElfCalories)
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
-	}
-
-	if len(currentElfCalories) > 0 {
-		maxCalories = max(maxCalories, sum(currentElfCalories))
 	}
 
 	log.Println(maxCalories)
