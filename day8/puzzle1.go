@@ -19,9 +19,9 @@ func main() {
 
 	scanner := bufio.NewScanner(input)
 	for scanner.Scan() {
-		tmp := make([]byte, len(scanner.Bytes()))
-		copy(tmp, scanner.Bytes())
-		grid = append(grid, tmp)
+		grid = append(grid, make([]byte, len(scanner.Bytes())))
+		copy(grid[len(grid)-1], scanner.Bytes())
+
 		visibilityGrid = append(visibilityGrid, make([]bool, len(scanner.Bytes())))
 	}
 
